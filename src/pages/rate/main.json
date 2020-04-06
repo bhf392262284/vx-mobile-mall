@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "van-rate": "/static/vant/rate/index"
-  },
-  "navigationBarTitleText": "Rate 评分"
-}
-
-

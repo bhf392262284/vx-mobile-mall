@@ -3,15 +3,28 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
+		"enhance": false,
 		"postcss": true,
+		"preloadBackgroundData": false,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false
+		"coverView": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": false,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"appid": "wxea4707081907fd91",
-	"projectname": "vantweappmpvuedemp",
+	"appid": "wx53fdd9ce9d8a01fc",
+	"projectname": "vx-mobile-mall",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {

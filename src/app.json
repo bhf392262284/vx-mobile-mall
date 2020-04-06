@@ -1,49 +1,14 @@
 {
   "pages": [
     "pages/index/main",
-    "pages/button/main",
-    "pages/tab/main",
-    "pages/tag/main",
-    "pages/icon/main",
-    "pages/iconall/main",
-    "pages/mycell/main",
-    "pages/datetimepicker/main",
-    "pages/mycollapse/main",
-    "pages/mypanel/main",
-    "pages/steps/main",
-    "pages/mypopup/main",
-    "pages/checkbox/main",
-    "pages/field/main",
-    "pages/layout/main",
-    "pages/layoutdemo/main",
-    "pages/radios/main",
-    "pages/search/main",
-    "pages/navbar/main",
-    "pages/noticebar/main",
-    "pages/mynotify/main",
-    "pages/mytoast/main",
-    "pages/loading/main",
-    "pages/mydialog/main",
-    "pages/readmeme/main",
-    "pages/mytransition/main",
-    "pages/rate/main",
-    "pages/picker/main",
-    "pages/pickermorecols/main",
-    "pages/pickerobj/main",
-    "pages/myslider/main",
-    "pages/stepper/main",
-    "pages/actionsheet/main",
-    "pages/switch/main",
-    "pages/badge/main",
-    "pages/mytabbar/main",
-    "pages/debugpage/scanbarcode/main",
-    "pages/debugpage/selectimg/main"
+    "pages/find/main",
+    "pages/shoppingCart/main",
+    "pages/mine/main"
   ],
   "window": {
-    "backgroundTextStyle": "dark",
-    "backgroundColor": "#eeeeee",
-    "navigationBarBackgroundColor": "#f8f8f8",
-    "navigationBarTitleText": "mpvue中使用Vant Weapp",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -53,16 +18,28 @@
     "borderStyle": "white",
     "list": [
       {
-        "text": "首页",
         "pagePath": "pages/index/main",
         "iconPath": "static/tabs/home.png",
-        "selectedIconPath": "static/tabs/home-active.png"
+        "selectedIconPath": "static/tabs/home-active.png",
+        "text": "首页"
       },
       {
-        "text": "说明",
-        "pagePath": "pages/readmeme/main",
-        "iconPath": "static/tabs/orders.png",
-        "selectedIconPath": "static/tabs/orders-active.png"
+        "pagePath": "pages/find/main",
+        "iconPath": "static/tabs/search.png",
+        "selectedIconPath": "static/tabs/search-active.png",
+        "text": "发现"
+      },
+      {
+        "pagePath": "pages/shoppingCart/main",
+        "iconPath": "static/tabs/shopping.png",
+        "selectedIconPath": "static/tabs/shopping-active.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/mine/main",
+        "iconPath": "static/tabs/account.png",
+        "selectedIconPath": "static/tabs/account-active.png",
+        "text": "我的"
       }
     ],
     "position": "bottom"
