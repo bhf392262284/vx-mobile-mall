@@ -1,5 +1,5 @@
 <template>
-  <div>发现</div>
+  <div>发现qq1q</div>
 </template>
 
 <script>
