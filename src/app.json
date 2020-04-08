@@ -16,8 +16,7 @@
     "backgroundColor": "#fafafa",
     "selectedColor": "#333",
     "borderStyle": "white",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/index/main",
         "iconPath": "static/tabs/home.png",
         "selectedIconPath": "static/tabs/home-active.png",

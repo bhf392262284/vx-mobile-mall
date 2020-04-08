@@ -2,6 +2,18 @@
   <div id="index">
     <van-tabs @change="clickTabs">
       <van-tab title="推荐">
+        <swiper
+          duration="duration"
+          indicator-dots="indicatorDots"
+          autoplay="autoplay"
+          interval="interval"
+        >
+          <block v-for="(item,index) in background" :key="index">
+            <swiper-item>
+              <view class="swiper-item">{{item}}</view>
+            </swiper-item>
+          </block>
+        </swiper>
         <div class="rap">
           <div class="Popular">
             <span>热门推荐</span>
@@ -79,15 +91,44 @@ export default {
   name: "index",
   data() {
     return {
-      imageURL: "../../static/img/ipad.jpeg"
+      autoplay: true,
+      indicatorDots: true,
+      duration: 500,
+      interval: 2000,
+      background: [
+        "https://img-oss.yunshanmeicai.com/goods/default/31d8dfa4-0d7b-4694-80f9-41b07c9d0a3a.png",
+        "https://img-oss.yunshanmeicai.com/goods/default/e83c8f0f-4acc-4729-bcbb-294f2b314977.jpg"
+      ],
+      imageURL: "../../static/img/ipad.jpg"
     };
   },
   methods: {
-    clickTabs(e) {
-      console.log(e.mp.detail);
-    }
+    //热门接口
+    // clickTabs(e) {
+    //   const index = e.mp.detail.index;
+    //   if (index === 0) {
+    //     this.Recommend();
+    //   } else if (index === 1) {
+    //     console.log("我是手机");
+    //   }
+    // }
   },
-  created() {}
+  created: {
+    // Recommend() {
+    //   this.$http({
+    //     url: "goods/searchHot",
+    //     method: "get"
+    //   }).then(res => {
+    //     console.log(res);
+    //   });
+    //   this.$http({
+    //     url: "goods/searchHot",
+    //     method: "get"
+    //   }).then(res => {
+    //     console.log(res);
+    //   });
+    // }
+  }
 };
 </script>
 
@@ -115,36 +156,5 @@ export default {
 }
 #index .rap {
   background-color: #fff;
-}
-#index .list-describe img {
-  height: 88px;
-  width: 88px;
-  background-color: red;
-}
-#index .list-describe .list-head {
-  display: flex;
-  margin-left: 6px;
-  font-size: 12px;
-  flex-direction: column;
-  justify-content: space-between;
-}
-#index .list-describe .list-head p {
-  padding-top: 2px;
-}
-#index .list-describe .list-head h4 {
-  color: #323233;
-}
-#index .list-describe .list-head p {
-  color: #646566;
-}
-#index .list-describe .list-head span {
-  flex-shrink: 1;
-}
-.fsize span {
-  display: inline-block;
-  font-size: 16px;
-}
-.fsize i {
-  display: inline-block;
 }
 </style>
