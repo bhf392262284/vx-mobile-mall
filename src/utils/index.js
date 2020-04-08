@@ -1,4 +1,6 @@
 const host = "https://linjiashop.microapp.store/prod-api/";
+const baseImageUrl =
+  "https://linjiashop.microapp.store/prod-api/file/getImgStream?idFile=";
 
 function request(url, method, data) {
   wx.showLoading({
@@ -27,4 +29,4 @@ function request(url, method, data) {
   });
 }
 
-export { request };
+export { request, baseImageUrl };

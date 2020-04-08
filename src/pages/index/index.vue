@@ -2,76 +2,47 @@
   <div id="index">
     <van-tabs @change="clickTabs">
       <van-tab title="推荐">
-        <swiper
-          duration="duration"
-          indicator-dots="indicatorDots"
-          autoplay="autoplay"
-          interval="interval"
-        >
-          <block v-for="(item,index) in background" :key="index">
-            <swiper-item>
-              <view class="swiper-item">{{item}}</view>
-            </swiper-item>
-          </block>
-        </swiper>
+        <van-row>
+          <van-col
+            :span="(index === 0 || (index % 3 === 0)) ? 12 : 6"
+            v-for="(item,index) in exhibition"
+            :key="index"
+          >
+            <img style="max-width: 100%; height: 100px" :src="baseImage + item.article.img" alt />
+          </van-col>
+        </van-row>
         <div class="rap">
           <div class="Popular">
             <span>热门推荐</span>
           </div>
-          <div class="list-describe">
-            <img :src="imageURL" alt />
+          <div class="list-describe" v-for="(item,index) in hot" :key="index">
+            <img :src="baseImage + item.pic" alt />
             <div class="list-head">
               <div>
-                <h4>红米8A</h4>
-                <p>5000mAh大电量 / 最高可选4GB+64GB版本</p>
+                <h4>{{item.name}}</h4>
+                <p>{{item.descript}}</p>
               </div>
               <div class="fsize">
                 <i>¥</i>
-                <span>16</span>.00
-              </div>
-            </div>
-          </div>
-          <div class="list-describe">
-            <img :src="imageURL" alt />
-            <div class="list-head">
-              <div>
-                <h4>红米8A</h4>
-                <p>5000mAh大电量 / 最高可选4GB+64GB版本</p>
-              </div>
-              <div class="fsize">
-                <i>¥</i>
-                <span>16</span>.00
+                <span>{{item.price / 100}}</span>.00
               </div>
             </div>
           </div>
         </div>
         <div class="rap">
           <div class="Popular">
-            <span>热门推荐</span>
+            <span>新品推荐</span>
           </div>
-          <div class="list-describe">
-            <img :src="imageURL" alt />
+          <div class="list-describe" v-for="(item,index) in news" :key="index">
+            <img :src="baseImage + item.pic" alt />
             <div class="list-head">
               <div>
-                <h4>红米8A</h4>
-                <p>5000mAh大电量 / 最高可选4GB+64GB版本</p>
+                <h4>{{item.name}}}</h4>
+                <p>{{item.descript}}</p>
               </div>
               <div class="fsize">
                 <i>¥</i>
-                <span>16</span>.00
-              </div>
-            </div>
-          </div>
-          <div class="list-describe">
-            <img :src="imageURL" alt />
-            <div class="list-head">
-              <div>
-                <h4>红米8A</h4>
-                <p>5000mAh大电量 / 最高可选4GB+64GB版本</p>
-              </div>
-              <div class="fsize">
-                <i>¥</i>
-                <span>16</span>.00
+                <span>{{(item.price) /100 }}</span>.00
               </div>
             </div>
           </div>
@@ -87,47 +58,51 @@
 </template>
 
 <script>
+import { baseImageUrl } from "@/utils/index";
 export default {
   name: "index",
   data() {
     return {
-      autoplay: true,
-      indicatorDots: true,
-      duration: 500,
-      interval: 2000,
+      baseImage: baseImageUrl,
       background: [
         "https://img-oss.yunshanmeicai.com/goods/default/31d8dfa4-0d7b-4694-80f9-41b07c9d0a3a.png",
         "https://img-oss.yunshanmeicai.com/goods/default/e83c8f0f-4acc-4729-bcbb-294f2b314977.jpg"
       ],
-      imageURL: "../../static/img/ipad.jpg"
+      // 热门数据
+      hot: [],
+      // 新品数据
+      news: [],
+      // 推荐头部展示图片
+      exhibition: []
     };
   },
   methods: {
-    //热门接口
-    // clickTabs(e) {
-    //   const index = e.mp.detail.index;
-    //   if (index === 0) {
-    //     this.Recommend();
-    //   } else if (index === 1) {
-    //     console.log("我是手机");
-    //   }
-    // }
+    recommend() {
+      //热门接口
+      this.$http("goods/searchHot", "get").then(res => {
+        this.hot = res.data;
+      });
+      //新品接口
+      this.$http("goods/searchNew", "get").then(res => {
+        this.news = res.data;
+      });
+      // 头部展示
+      this.$http("topic/list", "get").then(res => {
+        this.exhibition = res.data;
+      });
+    },
+    // 点击首页头部tab回调
+    clickTabs(e) {
+      const index = e.mp.detail.index;
+      if (index === 0) {
+        this.recommend();
+      } else {
+        console.log("我是手机", index);
+      }
+    }
   },
-  created: {
-    // Recommend() {
-    //   this.$http({
-    //     url: "goods/searchHot",
-    //     method: "get"
-    //   }).then(res => {
-    //     console.log(res);
-    //   });
-    //   this.$http({
-    //     url: "goods/searchHot",
-    //     method: "get"
-    //   }).then(res => {
-    //     console.log(res);
-    //   });
-    // }
+  created() {
+    this.recommend();
   }
 };
 </script>

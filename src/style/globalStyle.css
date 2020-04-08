@@ -4,13 +4,13 @@
   display: flex;
 }
 
-img {
+.list-describe img {
   height: 88px;
   width: 88px;
   background-color: red;
 }
 
-p {
+.list-describe p {
   padding-top: 2px;
 }
 
@@ -26,12 +26,12 @@ p {
   flex-shrink: 1;
 }
 
-span {
+.list-describe span {
   display: inline-block;
   font-size: 16px;
 }
 
-i {
+.list-describe i {
   display: inline-block;
 }
 
