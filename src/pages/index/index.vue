@@ -44,10 +44,10 @@
             <span>新品推荐</span>
           </div>
           <div class="list-describe" v-for="(item,index) in news" :key="index">
-            <img :src="baseImage + item.pic" alt />
+            <img @click="deviceStatus(item.id)" :src="baseImage + item.pic" alt />
             <div class="list-head">
               <div>
-                <h4>{{item.name}}}</h4>
+                <h4>{{item.name}}</h4>
                 <p>{{item.descript}}</p>
               </div>
               <div class="fsize">
@@ -111,7 +111,6 @@ export default {
     },
     //头部详情
     Jump(id) {
-      console.log(id);
       const url = "/pages/details/main?id=" + id;
       wx.navigateTo({ url });
     },

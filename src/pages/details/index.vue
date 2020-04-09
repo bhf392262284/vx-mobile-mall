@@ -18,7 +18,12 @@ export default {
   onLoad(options) {
     let id = options.id;
     this.$http("topic/" + id).then(res => {
-      this.detailsPage = res.data.article;
+      let shop = res.data.article;
+      shop.content = shop.content.replace(
+        /\<img/gi,
+        '<img style="max-width:100%"'
+      );
+      this.detailsPage = shop;
     });
   }
 };

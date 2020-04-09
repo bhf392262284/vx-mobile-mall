@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "热门商品",
+  "navigationBarTitleText": "商品详情",
   "usingComponents": {
     "van-row": "/static/vant/row/index",
     "van-col": "/static/vant/col/index",
