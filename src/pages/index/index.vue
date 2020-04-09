@@ -8,14 +8,24 @@
             v-for="(item,index) in exhibition"
             :key="index"
           >
-            <img style="max-width: 100%; height: 100px" :src="baseImage + item.article.img" alt />
+            <img
+              @click="Jump(item.id)"
+              style="max-width: 100%; height: 100px"
+              :src="baseImage + item.article.img"
+              alt
+            />
           </van-col>
         </van-row>
         <div class="rap">
           <div class="Popular">
             <span>热门推荐</span>
           </div>
-          <div class="list-describe" v-for="(item,index) in hot" :key="index">
+          <div
+            class="list-describe"
+            v-for="(item,index) in hot"
+            :key="index"
+            @click="deviceStatus(item.id)"
+          >
             <img :src="baseImage + item.pic" alt />
             <div class="list-head">
               <div>
@@ -97,8 +107,18 @@ export default {
       if (index === 0) {
         this.recommend();
       } else {
-        console.log("我是手机", index);
       }
+    },
+    //头部详情
+    Jump(id) {
+      console.log(id);
+      const url = "/pages/details/main?id=" + id;
+      wx.navigateTo({ url });
+    },
+    //热门商品详情
+    deviceStatus(id) {
+      const url = "/pages/phoneHot/main?id=" + id;
+      wx.navigateTo({ url });
     }
   },
   created() {

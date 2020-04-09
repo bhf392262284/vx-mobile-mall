@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "热门商品",
+  "usingComponents": {
+    "van-row": "/static/vant/row/index",
+    "van-col": "/static/vant/col/index",
+    "van-icon": "/static/vant/icon/index",
+    "van-toast": "/static/vant/toast/index"
+  }
+}

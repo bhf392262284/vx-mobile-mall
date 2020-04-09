@@ -3,7 +3,9 @@
     "pages/index/main",
     "pages/find/main",
     "pages/shoppingCart/main",
-    "pages/mine/main"
+    "pages/mine/main",
+    "pages/details/main",
+    "pages/phoneHot/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
