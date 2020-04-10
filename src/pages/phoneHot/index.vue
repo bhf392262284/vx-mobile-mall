@@ -1,10 +1,19 @@
 <template>
   <div class="phoneHot">
+    <van-toast id="van-toast" />
     <div class="carousel">
-      <swiper indicator-dots="false" autoplay="true" interval="2000" duration="500">
-        <block v-for="(item,index) in images" :key="index">
+      <swiper
+        indicator-dots="false"
+        autoplay="true"
+        interval="3000"
+        duration="500"
+        style="height:450px"
+        indicator-color="#ebedf0"
+        indicator-active-color="#1989fa"
+      >
+        <block v-for="(item,index) in bannerList" :key="index">
           <swiper-item>
-            <img :src="item.url" alt />
+            <img style="height:100%; width:100%" :src="url+item" alt />
           </swiper-item>
         </block>
       </swiper>
@@ -17,13 +26,13 @@
         <p>{{shopList.descript}}</p>
       </div>
       <div class="list-yunfei">
-        <p>{{price / 100}}</p>
+        <p>{{ shopList.price}}</p>
       </div>
     </div>
     <div class="yunfei">
       <van-row>
         <van-col span="10">运费：免运费</van-col>
-        <van-col span="14">剩余：443</van-col>
+        <van-col span="14">剩余：{{shopList.stock}}</van-col>
       </van-row>
     </div>
     <div class="group" @click="detailed">
@@ -34,43 +43,36 @@
   </div>
 </template>
 <script>
+import Toast from "../../../static/vant/toast/toast";
+import { baseImageUrl } from "@/utils/index";
 export default {
   name: "phoneHot",
   data() {
     return {
-      images: [
-        {
-          url:
-            "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4263124123,4148890043&fm=11&gp=0.jpg"
-        },
-        {
-          url:
-            "https://img.ivsky.com/img/tupian/pre/201906/23/diannaoshouji-007.jpg"
-        },
-        {
-          url:
-            "https://img.ivsky.com/img/tupian/pre/201906/23/diannaoshouji-008.jpg"
-        },
-        {
-          url:
-            "https://img.ivsky.com/img/tupian/pre/201906/23/diannaoshouji-009.jpg"
-        }
-      ],
-      shopList: {}
+      url: baseImageUrl,
+      shopList: {},
+      bannerList: []
     };
   },
-  onLoad(options) {
-    let id = options.id;
-    this.$http("goods/" + id).then(res => {
-      this.shopList = res.data.goods;
-    });
+  onLoad(option) {
+    this.getGoods(option.id);
   },
   methods: {
+    getGoods(id) {
+      this.$http("goods/" + id).then(res => {
+        let shop = res.data.goods;
+        shop.detail = shop.detail.replace(
+          /\<img/gi,
+          '<img style="max-width:100%"'
+        );
+        this.shopList = shop;
+        this.bannerList = shop.gallery.split(",");
+      });
+    },
     detailed() {
-      wx.showToast({
-        title: "敬请期待",
-        icon: "success",
-        duration: 2000
+      Toast({
+        message: "敬请期待",
+        duration: 1500
       });
     }
   }
