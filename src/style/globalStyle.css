@@ -5,6 +5,7 @@
 }
 
 .list-describe img {
+  border-radius: 8px;
   height: 88px;
   width: 88px;
 }
@@ -35,9 +36,15 @@
 }
 
 .list-head {
+  flex: 1;
   display: flex;
   margin-left: 6px;
   font-size: 12px;
   flex-direction: column;
   justify-content: space-between;
+}
+
+
+.phoneHot .aciton-height {
+  height: 50px;
 }

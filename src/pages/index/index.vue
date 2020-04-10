@@ -1,6 +1,7 @@
 <template>
   <div id="index">
     <van-tabs @change="clickTabs">
+      <!-- 推荐页 -->
       <van-tab title="推荐">
         <van-row>
           <van-col
@@ -33,8 +34,7 @@
                 <p>{{item.descript}}</p>
               </div>
               <div class="fsize">
-                <i>¥</i>
-                <span>{{item.price / 100}}</span>.00
+                <span>¥{{item.price / 100}}.00</span>
               </div>
             </div>
           </div>
@@ -51,18 +51,173 @@
                 <p>{{item.descript}}</p>
               </div>
               <div class="fsize">
-                <i>¥</i>
-                <span>{{(item.price) /100 }}</span>.00
+                <span>¥{{(item.price) /100 }}.00</span>
               </div>
             </div>
           </div>
         </div>
       </van-tab>
-      <van-tab title="手机">手机</van-tab>
-      <van-tab title="电视">电视</van-tab>
-      <van-tab title="笔记本">笔记本</van-tab>
-      <van-tab title="家电">家电</van-tab>
-      <van-tab title="居家">居家</van-tab>
+      <!-- 手机页 -->
+      <van-tab title="手机">
+        <swiper
+          indicator-dots="false"
+          autoplay="true"
+          interval="3000"
+          duration="500"
+          indicator-color="#ebedf0"
+          indicator-active-color="#1989fa"
+        >
+          <block v-for="(item,index) in imgPicture" :key="index">
+            <swiper-item>
+              <img style="height:100%; width:100%" :src="baseImage + item.gallery" alt />
+            </swiper-item>
+          </block>
+        </swiper>
+        <div
+          class="list-describe"
+          v-for="(item,index) in electricalAppliancesSeries"
+          :key="index"
+          @click="deviceStatus(item.id)"
+        >
+          <img :src="baseImage + item.pic" alt />
+          <div class="list-head">
+            <div>
+              <h4>{{item.name}}</h4>
+              <p>{{item.descript}}</p>
+            </div>
+            <div class="fsize">
+              <span>¥{{item.price / 100}}.00</span>
+              <i>x{{item.stock}}</i>
+            </div>
+          </div>
+        </div>
+      </van-tab>
+      <!-- 电视页 -->
+      <van-tab title="电视">
+        <swiper interval="3000" duration="500">
+          <block>
+            <swiper-item>
+              <img style="height:100%; width:100%" alt />
+            </swiper-item>
+          </block>
+        </swiper>
+        <div
+          class="list-describe"
+          v-for="(item,index) in electricalAppliancesSeries"
+          :key="index"
+          @click="deviceStatus(item.id)"
+        >
+          <img :src="baseImage + item.pic" alt />
+          <div class="list-head">
+            <div>
+              <h4>{{item.name}}</h4>
+              <p>{{item.descript}}</p>
+            </div>
+            <div class="fsize">
+              <span>¥{{item.price / 100}}.00</span>
+              <i>x{{item.stock}}</i>
+            </div>
+          </div>
+        </div>
+      </van-tab>
+      <!-- 笔记本 -->
+      <van-tab title="笔记本">
+        <swiper
+          indicator-dots="false"
+          autoplay="true"
+          interval="3000"
+          duration="500"
+          indicator-color="#ebedf0"
+          indicator-active-color="#1989fa"
+        >
+          <block>
+            <swiper-item>
+              <img style="height:100%; width:100%" alt />
+            </swiper-item>
+          </block>
+        </swiper>
+        <div
+          class="list-describe"
+          v-for="(item,index) in electricalAppliancesSeries"
+          :key="index"
+          @click="deviceStatus(item.id)"
+        >
+          <img :src="baseImage + item.pic" alt />
+          <div class="list-head">
+            <div>
+              <h4>{{item.name}}</h4>
+              <p>{{item.descript}}</p>
+            </div>
+            <div class="fsize">
+              <span>¥{{item.price / 100}}.00</span>
+              <i>x{{item.stock}}</i>
+            </div>
+          </div>
+        </div>
+      </van-tab>
+      <!-- 家电 -->
+      <van-tab title="家电">
+        <swiper interval="3000" duration="500">
+          <block>
+            <swiper-item>
+              <img style="height:100%; width:100%" alt />
+            </swiper-item>
+          </block>
+        </swiper>
+        <div
+          class="list-describe"
+          v-for="(item,index) in electricalAppliancesSeries"
+          :key="index"
+          @click="deviceStatus(item.id)"
+        >
+          <img :src="baseImage + item.pic" alt />
+          <div class="list-head">
+            <div>
+              <h4>{{item.name}}</h4>
+              <p>{{item.descript}}</p>
+            </div>
+            <div class="fsize">
+              <span>¥{{item.price / 100}}.00</span>
+              <i>x{{item.stock}}</i>
+            </div>
+          </div>
+        </div>
+      </van-tab>
+      <!-- 居家 -->
+      <van-tab title="居家">
+        <swiper
+          indicator-dots="false"
+          autoplay="true"
+          interval="3000"
+          duration="500"
+          indicator-color="#ebedf0"
+          indicator-active-color="#1989fa"
+        >
+          <block>
+            <swiper-item>
+              <img style="height:100%; width:100%" alt />
+            </swiper-item>
+          </block>
+        </swiper>
+        <div
+          class="list-describe"
+          v-for="(item,index) in electricalAppliancesSeries"
+          :key="index"
+          @click="deviceStatus(item.id)"
+        >
+          <img :src="baseImage + item.pic" alt />
+          <div class="list-head">
+            <div>
+              <h4>{{item.name}}</h4>
+              <p>{{item.descript}}</p>
+            </div>
+            <div class="fsize">
+              <span>¥{{item.price / 100}}.00</span>
+              <i>x{{item.stock}}</i>
+            </div>
+          </div>
+        </div>
+      </van-tab>
     </van-tabs>
   </div>
 </template>
@@ -74,16 +229,16 @@ export default {
   data() {
     return {
       baseImage: baseImageUrl,
-      background: [
-        "https://img-oss.yunshanmeicai.com/goods/default/31d8dfa4-0d7b-4694-80f9-41b07c9d0a3a.png",
-        "https://img-oss.yunshanmeicai.com/goods/default/e83c8f0f-4acc-4729-bcbb-294f2b314977.jpg"
-      ],
       // 热门数据
       hot: [],
       // 新品数据
       news: [],
       // 推荐头部展示图片
-      exhibition: []
+      exhibition: [],
+      //tab 所有
+      electricalAppliancesSeries: [],
+      //详情 轮播
+      imgPicture: []
     };
   },
   methods: {
@@ -107,6 +262,7 @@ export default {
       if (index === 0) {
         this.recommend();
       } else {
+        this.allDtata(index);
       }
     },
     //头部详情
@@ -118,6 +274,17 @@ export default {
     deviceStatus(id) {
       const url = "/pages/phoneHot/main?id=" + id;
       wx.navigateTo({ url });
+    },
+    //头部 Tab 接口
+    allDtata(index) {
+      this.$http("goods/queryGoods", "get", {
+        page: 1,
+        limit: 50,
+        idCategory: index
+      }).then(res => {
+        this.electricalAppliancesSeries = res.data.records;
+        // this.imgPicture = res.data.records.gallery.split(",");
+      });
     }
   },
   created() {
@@ -127,6 +294,9 @@ export default {
 </script>
 
 <style scoped>
+#index {
+  background-color: #fff;
+}
 #index .list-describe {
   box-sizing: border-box;
   padding: 8px 16px;
@@ -150,5 +320,13 @@ export default {
 }
 #index .rap {
   background-color: #fff;
+}
+
+.list-head .fsize {
+  display: flex;
+  justify-content: space-between;
+}
+.list-head .fsize i {
+  color: #969799;
 }
 </style>

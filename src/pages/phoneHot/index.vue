@@ -40,6 +40,12 @@
       <p>></p>
     </div>
     <div class="neirong" v-html="shopList.detail"></div>
+    <van-goods-action class="aciton-height">
+      <van-goods-action-icon icon="home-o" text="主页" @click="onClickIcon" />
+      <van-goods-action-icon icon="like-o" text="喜欢" @click="onClickIcon" />
+      <van-goods-action-icon icon="cart-o" text="购物车" @click="onClickIcon" />
+      <van-goods-action-button type="warning" text="立即购买" @click="onClickButton" />
+    </van-goods-action>
   </div>
 </template>
 <script>
@@ -123,5 +129,8 @@ export default {
   padding: 10px 16px;
   font-size: 14px;
   background-color: #fff;
+}
+.neirong {
+  margin-bottom: 50px;
 }
 </style>
