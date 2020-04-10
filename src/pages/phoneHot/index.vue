@@ -48,6 +48,7 @@ import { baseImageUrl } from "@/utils/index";
 export default {
   name: "phoneHot",
   data() {
+    //试试
     return {
       url: baseImageUrl,
       shopList: {},
