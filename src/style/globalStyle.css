@@ -44,7 +44,22 @@
   justify-content: space-between;
 }
 
-
-.phoneHot .aciton-height {
+.phoneHot .aciton-height .van-button--large {
   height: 50px;
+}
+.bottom-colorsss {
+  background: linear-gradient(90deg, rgb(255, 96, 52), rgb(238, 10, 36));
+}
+.phoneHot .goumai-gouwuche .van-goods-action {
+  margin: 8px 16px;
+  border-radius: 30px;
+  overflow: hidden;
+  height: 40px;
+}
+.phoneHot .goumai-gouwuche .van-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  line-height: inherit;
 }

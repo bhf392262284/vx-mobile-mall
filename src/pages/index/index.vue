@@ -69,7 +69,7 @@
         >
           <block v-for="(item,index) in imgPicture" :key="index">
             <swiper-item>
-              <img style="height:100%; width:100%" :src="baseImage + item.gallery" alt />
+              <img style="height:100%; width:100%" :src="baseImage + item" alt />
             </swiper-item>
           </block>
         </swiper>
@@ -95,9 +95,9 @@
       <!-- 电视页 -->
       <van-tab title="电视">
         <swiper interval="3000" duration="500">
-          <block>
+          <block v-for="(item,index) in imgPicture" :key="index">
             <swiper-item>
-              <img style="height:100%; width:100%" alt />
+              <img style="height:100%; width:100%" :src="baseImage + item" alt />
             </swiper-item>
           </block>
         </swiper>
@@ -130,9 +130,9 @@
           indicator-color="#ebedf0"
           indicator-active-color="#1989fa"
         >
-          <block>
+          <block v-for="(item,index) in imgPicture" :key="index">
             <swiper-item>
-              <img style="height:100%; width:100%" alt />
+              <img style="height:100%; width:100%" :src="baseImage + item" alt />
             </swiper-item>
           </block>
         </swiper>
@@ -158,9 +158,9 @@
       <!-- 家电 -->
       <van-tab title="家电">
         <swiper interval="3000" duration="500">
-          <block>
+          <block v-for="(item,index) in imgPicture" :key="index">
             <swiper-item>
-              <img style="height:100%; width:100%" alt />
+              <img style="height:100%; width:100%" :src="baseImage + item" alt />
             </swiper-item>
           </block>
         </swiper>
@@ -193,9 +193,9 @@
           indicator-color="#ebedf0"
           indicator-active-color="#1989fa"
         >
-          <block>
+          <block v-for="(item,index) in imgPicture" :key="index">
             <swiper-item>
-              <img style="height:100%; width:100%" alt />
+              <img style="height:100%; width:100%" :src="baseImage + item" alt />
             </swiper-item>
           </block>
         </swiper>
@@ -283,7 +283,7 @@ export default {
         idCategory: index
       }).then(res => {
         this.electricalAppliancesSeries = res.data.records;
-        // this.imgPicture = res.data.records.gallery.split(",");
+        this.imgPicture = res.data.records[0].gallery.split(",");
       });
     }
   },
