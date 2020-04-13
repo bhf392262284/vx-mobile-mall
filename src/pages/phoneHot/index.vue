@@ -112,13 +112,18 @@ export default {
     getGoods(id) {
       this.$http("goods/" + id).then(res => {
         let shop = res.data.goods;
-        let newTree = res.data.sku.tree;
         shop.detail = shop.detail.replace(
           /\<img/gi,
           '<img style="max-width:100%"'
         );
         this.shopList = shop;
         this.bannerList = shop.gallery.split(",");
+        let newTree = res.data.sku.tree;
+        for (let i = 0; i < newTree.length; i++) {
+          for (let j = 0; j < newTree[i].v.length; j++) {
+            newTree[i].v[j].color = false;
+          }
+        }
         this.skuTree = newTree;
       });
     },
@@ -156,7 +161,13 @@ export default {
         this.shuzi++;
       }
     },
-    selectColor() {}
+    selectColor(index, s) {
+      console.log(123);
+      for (let k = 0; k < this.skuTree[index].v.length; k++) {
+        this.skuTree[index].v[s].color = false;
+      }
+      this.skuTree[index].v[s].color = !this.skuTree[index].v[s].color;
+    }
   }
 };
 </script>
