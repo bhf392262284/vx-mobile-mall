@@ -57,7 +57,12 @@
         <div class="Edition" v-for="(item,index) in skuTree" :key="index">
           <p>{{item.k}}</p>
           <div>
-            <p v-for="(i,s) in item.v" :key="s" @click="selectColor(index, s)">{{i.name}}</p>
+            <p
+              :class="{styleColor:skuTree[index].v[s].color}"
+              v-for="(i,s) in item.v"
+              :key="s"
+              @click="selectColor(index, s)"
+            >{{i.name}}</p>
           </div>
         </div>
         <div class="shuliang">
@@ -102,7 +107,8 @@ export default {
       shopList: {},
       skuTree: [],
       bannerList: [],
-      show: true
+      show: true,
+      commoditySpecification: []
     };
   },
   onLoad(option) {
@@ -112,6 +118,7 @@ export default {
     getGoods(id) {
       this.$http("goods/" + id).then(res => {
         let shop = res.data.goods;
+
         shop.detail = shop.detail.replace(
           /\<img/gi,
           '<img style="max-width:100%"'
@@ -125,6 +132,7 @@ export default {
           }
         }
         this.skuTree = newTree;
+        this.commoditySpecification = res.data.sku.list;
       });
     },
     detailed() {
@@ -143,9 +151,6 @@ export default {
     open() {
       this.show = true;
     },
-    onChange(event) {
-      this.setData({ active: event.detail });
-    },
     clickNumber(data) {
       if (data === "jian") {
         if (this.shuzi <= 1) {
@@ -162,9 +167,17 @@ export default {
       }
     },
     selectColor(index, s) {
-      console.log(123);
-      for (let k = 0; k < this.skuTree[index].v.length; k++) {
-        this.skuTree[index].v[s].color = false;
+      // 如果点击的是版本里面的4GB+64GB那么，index = 0 s = 1
+      // for (let k = 0; k < this.skuTree[index].v.length; k++) {
+      //   if (k !== s) {
+      //     this.skuTree[index].v[k].color = false;
+      //   }
+      // }
+      // this.skuTree[index].v[s].color = !this.skuTree[index].v[s].color;
+      for (let i = 0; i < this.skuTree[index].v.length; i++) {
+        if (i !== s) {
+          this.skuTree[index].v[k].color == false;
+        }
       }
       this.skuTree[index].v[s].color = !this.skuTree[index].v[s].color;
     }
