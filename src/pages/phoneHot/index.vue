@@ -176,7 +176,7 @@ export default {
       // this.skuTree[index].v[s].color = !this.skuTree[index].v[s].color;
       for (let i = 0; i < this.skuTree[index].v.length; i++) {
         if (i !== s) {
-          this.skuTree[index].v[k].color == false;
+          this.skuTree[index].v[i].color == false;
         }
       }
       this.skuTree[index].v[s].color = !this.skuTree[index].v[s].color;
