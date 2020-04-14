@@ -167,16 +167,10 @@ export default {
       }
     },
     selectColor(index, s) {
-      // 如果点击的是版本里面的4GB+64GB那么，index = 0 s = 1
-      // for (let k = 0; k < this.skuTree[index].v.length; k++) {
-      //   if (k !== s) {
-      //     this.skuTree[index].v[k].color = false;
-      //   }
-      // }
-      // this.skuTree[index].v[s].color = !this.skuTree[index].v[s].color;
-      for (let i = 0; i < this.skuTree[index].v.length; i++) {
-        if (i !== s) {
-          this.skuTree[index].v[i].color == false;
+      //   如果点击的是版本里面的4GB+64GB那么，index = 0 s = 1
+      for (let k = 0; k < this.skuTree[index].v.length; k++) {
+        if (k !== s) {
+          this.skuTree[index].v[k].color = false;
         }
       }
       this.skuTree[index].v[s].color = !this.skuTree[index].v[s].color;

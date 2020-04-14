@@ -74,3 +74,52 @@
 .login .isDisplay .button-group .van-button {
   margin-top: 10px;
 }
+
+.login .font-s {
+  font-size: 14px;
+}
+
+.login .van-row {
+  padding: 15px 0;
+  background-color: #fff;
+  border-bottom: 1px solid #ebedf0;
+}
+
+.login .kongbai {
+  margin-bottom: 15px;
+}
+.shoppingCart .van-card__thumb {
+  width: 88px;
+  height: 88px;
+}
+.shoppingCart .van-card {
+  width: 100%;
+}
+.shoppingCart .van-checkbox {
+  display: flex;
+  align-items: center;
+}
+.shoppingCart ._van-card {
+  flex: 1;
+}
+.shoppingCart ._van-checkbox {
+  display: flex;
+}
+.shoppingCart .van-stepper {
+  display: flex;
+  justify-content: flex-end;
+}
+.shoppingCart .van-card__content {
+  display: flex;
+  align-items: space-between;
+  flex-direction: column;
+}
+.shoppingCart .van-card__bottom {
+  margin-top: 25px;
+}
+.shoppingCart .van-card__num {
+  color: #646566;
+}
+.shoppingCart .van-submit-bar__bar {
+  padding: 0 20px;
+}

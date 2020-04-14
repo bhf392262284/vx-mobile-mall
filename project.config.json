@@ -57,6 +57,13 @@
 					"pathName": "pages/phoneHot/main",
 					"query": "id=1",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/shoppingCart/main",
+					"pathName": "pages/shoppingCart/main",
+					"query": "",
+					"scene": null
 				}
 			]
 		}
