@@ -74,3 +74,18 @@
 .login .isDisplay .button-group .van-button {
   margin-top: 10px;
 }
+
+.login .font-s {
+  font-size: 14px;
+}
+
+.login .van-row {
+  padding: 15px 0;
+  background-color: #fff;
+  border-bottom: 1px solid #ebedf0;
+
+}
+
+.login .kongbai {
+  margin-bottom: 15px;
+}
