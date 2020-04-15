@@ -48,9 +48,9 @@
           <div class="information">
             <div class="one">
               ￥
-              <span>{{shopList.price}}</span>
+              <span>{{kucun.price}}</span>
             </div>
-            <div class="two">剩余{{shopList.stock}}件</div>
+            <div class="two">剩余{{kucun.stock}}件</div>
             <div class="see">选择版本颜色</div>
           </div>
         </div>
@@ -108,7 +108,11 @@ export default {
       skuTree: [],
       bannerList: [],
       show: true,
-      commoditySpecification: []
+      commoditySpecification: [],
+      kucun: {
+        price: "",
+        stock: ""
+      }
     };
   },
   onLoad(option) {
@@ -116,10 +120,8 @@ export default {
   },
   methods: {
     getGoods(id) {
-      console.log(123);
       this.$http("goods/" + id).then(res => {
         let shop = res.data.goods;
-
         shop.detail = shop.detail.replace(
           /\<img/gi,
           '<img style="max-width:100%"'
@@ -127,24 +129,16 @@ export default {
         this.shopList = shop;
         this.bannerList = shop.gallery.split(",");
         let newTree = res.data.sku.tree;
+        // 给规格和颜色按钮对象加一个color属性，用来选中和取消
         for (let i = 0; i < newTree.length; i++) {
           for (let j = 0; j < newTree[i].v.length; j++) {
             newTree[i].v[j].color = false;
           }
         }
         this.skuTree = newTree;
-        console.log(skuTree);
+        this.kucun.price = res.data.goods.price;
+        this.kucun.stock = res.data.goods.stock;
         this.commoditySpecification = res.data.sku.list;
-        let arr = [];
-        arr.join(",");
-        for (let q = 0; q < this.skuTree.length; q++) {
-          for (let k; k < this.skuTree[q].v.length; k++) {
-            if (this.skuTree[q].v[k].color == ture) {
-              arr.push(this.skuTree[q].v[k].id);
-            }
-          }
-        }
-        console.log(arr);
       });
     },
     detailed() {
@@ -163,6 +157,7 @@ export default {
     open() {
       this.show = true;
     },
+    // 商品数量增加和减少事件
     clickNumber(data) {
       if (data === "jian") {
         if (this.shuzi <= 1) {
@@ -178,14 +173,41 @@ export default {
         this.shuzi++;
       }
     },
+    // 点击颜色和版本里面的按钮
     selectColor(index, s) {
-      //   如果点击的是版本里面的4GB+64GB那么，index = 0 s = 1
+      // 重置颜色和版本按钮的color=false，也就是取消选中状态
       for (let k = 0; k < this.skuTree[index].v.length; k++) {
         if (k !== s) {
           this.skuTree[index].v[k].color = false;
         }
       }
+      // 如果按钮是选中那么就让他取消，反之就选中
       this.skuTree[index].v[s].color = !this.skuTree[index].v[s].color;
+      // 创建一个空数组，用来存储当前选中的按钮id
+      let arr = [];
+      // 遍历数组，找到按钮选中的id，存入arr数组里面
+      for (let q = 0; q < this.skuTree.length; q++) {
+        for (let k = 0; k < this.skuTree[q].v.length; k++) {
+          if (this.skuTree[q].v[k].color === true) {
+            arr.push(this.skuTree[q].v[k].id);
+          }
+        }
+      }
+      // 如果arr数组的长度大于1，说明我们选中了2个按钮
+      // 执行遍历，在list里面找到对应的code，把这项数组的对象里面的价格和库存赋值到一个对象
+      if (arr.length > 1) {
+        for (let v = 0; v < this.commoditySpecification.length; v++) {
+          if (this.commoditySpecification[v].code === arr.join(",")) {
+            console.log(this.commoditySpecification[v]);
+            this.kucun.price = this.commoditySpecification[v].price;
+            this.kucun.stock = this.commoditySpecification[v].stock_num;
+          }
+        }
+      } else {
+        // 用默认的价格和库存
+        this.kucun.price = this.shopList.price;
+        this.kucun.stock = this.shopList.stock;
+      }
     }
   }
 };
