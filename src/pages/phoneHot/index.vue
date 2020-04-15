@@ -116,6 +116,7 @@ export default {
   },
   methods: {
     getGoods(id) {
+      console.log(123);
       this.$http("goods/" + id).then(res => {
         let shop = res.data.goods;
 
@@ -132,7 +133,18 @@ export default {
           }
         }
         this.skuTree = newTree;
+        console.log(skuTree);
         this.commoditySpecification = res.data.sku.list;
+        let arr = [];
+        arr.join(",");
+        for (let q = 0; q < this.skuTree.length; q++) {
+          for (let k; k < this.skuTree[q].v.length; k++) {
+            if (this.skuTree[q].v[k].color == ture) {
+              arr.push(this.skuTree[q].v[k].id);
+            }
+          }
+        }
+        console.log(arr);
       });
     },
     detailed() {

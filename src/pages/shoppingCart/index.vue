@@ -12,17 +12,20 @@
       </div>
       <van-stepper value=" 1" @change="onChange" />
       <van-submit-bar
+        decimal-length="2"
+        type="info"
         price=" prices "
         label="合计"
-        prices="prices"
         button-text="结算"
         bind:submit="onSubmit"
       >
         <div class="check-width">
           <van-checkbox :value="allChcek" @change="allCheckChange">复选框</van-checkbox>
-          <div class="duiqi" style="display:flex">
+          <div class="duiqi">
             <i>合计：</i>
-            <i class="jiacu">250.00</i>
+            <span>￥</span>
+            <i class="jiacu">250</i>
+            <span style="padding-right:12px;">.00</span>
           </div>
         </div>
       </van-submit-bar>
@@ -90,9 +93,15 @@ export default {
 }
 .duiqi {
   display: flex;
+  align-items: center;
+}
+.duiqi span {
+  color: #ee0a24;
+  font-size: 12px;
   align-items: flex-end;
 }
 .shoppingCart .check-width .duiqi .jiacu {
+  align-items: flex-end;
   color: #ee0a24;
   font-size: 20px;
 
