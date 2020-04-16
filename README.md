@@ -31,3 +31,27 @@ for (let j = 0; j < newTree[i].v.length; j++) {
 newTree[i].v[j].color = false;
 }
 }
+
+// 验证是否选择了商品规格或颜色
+verifyProductSelection() {
+let s = 0;
+for (let i = 0; i < this.skuTree.length; i++) {
+for (let m = 0; m < this.skuTree[i].v.length; m++) {
+if (this.skuTree[i].v[m].color === false) {
+s++;
+}
+}
+if (s == 2) {
+Toast({
+message: "请先选择商品" + this.skuTree[i].k,
+duration: 1500
+});
+break;
+}
+}
+if (s === 2) {
+return false;
+} else {
+return true;
+}
+}

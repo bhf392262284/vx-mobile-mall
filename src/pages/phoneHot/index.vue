@@ -37,7 +37,7 @@
     </div>
     <div class="group" @click="detailed">
       <p>查看商品评论</p>
-      <p>></p>
+      <p></p>
     </div>
     <div class="neirong" v-html="shopList.detail"></div>
     <div class="gaodu"></div>
@@ -51,7 +51,7 @@
               <span>{{kucun.price}}</span>
             </div>
             <div class="two">剩余{{kucun.stock}}件</div>
-            <div class="see">选择版本颜色</div>
+            <div class="see">{{Choice}}</div>
           </div>
         </div>
         <div class="Edition" v-for="(item,index) in skuTree" :key="index">
@@ -74,8 +74,8 @@
           </div>
         </div>
         <van-goods-action class="goumai-gouwuche">
-          <van-goods-action-button text="加入购物车" type="warning" />
-          <van-goods-action-button text="立即购买" />
+          <van-goods-action-button @click="gouwuche()" text="加入购物车" type="warning" />
+          <van-goods-action-button @click="goumai()" text="立即购买" />
         </van-goods-action>
       </div>
     </van-action-sheet>
@@ -112,7 +112,8 @@ export default {
       kucun: {
         price: "",
         stock: ""
-      }
+      },
+      Choice: ""
     };
   },
   onLoad(option) {
@@ -198,7 +199,6 @@ export default {
       if (arr.length > 1) {
         for (let v = 0; v < this.commoditySpecification.length; v++) {
           if (this.commoditySpecification[v].code === arr.join(",")) {
-            console.log(this.commoditySpecification[v]);
             this.kucun.price = this.commoditySpecification[v].price;
             this.kucun.stock = this.commoditySpecification[v].stock_num;
           }
@@ -208,7 +208,24 @@ export default {
         this.kucun.price = this.shopList.price;
         this.kucun.stock = this.shopList.stock;
       }
-    }
+      // 显示选中的版本和颜色
+      let arrs = [];
+      for (let f = 0; f < this.skuTree.length; f++) {
+        console.log(this.skuTree[f]);
+        for (let m = 0; m < this.skuTree[f].v.length; m++) {
+          if (this.skuTree[f].v[m].color === true) {
+            arrs.push(this.skuTree[f].v[m].name);
+          }
+        }
+      }
+      this.Choice = arrs = arrs.join(",");
+    },
+    // 验证是否选择了商品规格或颜色
+    verifyProductSelection() {},
+    // 加入购物车
+    gouwuche() {},
+    //立即购买
+    goumai() {}
   }
 };
 </script>
