@@ -7,6 +7,7 @@
     "van-col": "/static/vant/col/index",
     "van-icon": "/static/vant/icon/index",
     "van-cell": "/static/vant/cell/index",
+    "van-toast": "/static/vant/toast/index",
     "van-cell-group": "/static/vant/cell-group/index"
   }
 }

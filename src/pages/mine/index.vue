@@ -1,16 +1,32 @@
 <template>
   <div class="login">
+    <van-toast id="van-toast" />
     <div class="content-top">
       <div class="user">
-        <img src="@static/images/user" />
+        <img :src="banner" />
       </div>
       <div class="isDisplay">
         <van-cell-group class="user-login">
-          <van-field required clearable label="用户名" v-model="name" placeholder="请输入用户名" />
-          <van-field required type="password" label="密码" v-model="password" placeholder="请输入密码" />
+          <van-field
+            required
+            clearable
+            label="用户名"
+            @change="isName"
+            :value="name"
+            placeholder="请输入用户名"
+          />
+          <van-field
+            required
+            clearable
+            type="password"
+            @change="isUesePASSWORD"
+            label="密码"
+            placeholder="请输入密码"
+            :value="password"
+          />
         </van-cell-group>
         <div class="button-group">
-          <van-button type="warning" block>登录</van-button>
+          <van-button type="warning" block @click="land()">登录</van-button>
           <van-button type="info" block>手机短信登录/注册</van-button>
         </div>
       </div>
@@ -45,15 +61,65 @@
 </template>
 
 <script>
+import Toast from "../../../static/vant/toast/toast";
+import banner from "../../../static/img/user-banner.jpg";
+
 export default {
   name: "login",
   data() {
     return {
+      banner: banner,
       name: "",
       password: ""
     };
   },
-  created() {}
+  methods: {
+    isName(e) {
+      this.name = e.mp.detail;
+    },
+    isUesePASSWORD(e) {
+      this.password = e.mp.detail;
+    },
+    land() {
+      if (this.name === "") {
+        Toast({
+          message: "请输入用户账号",
+          duration: 1500
+        });
+        return;
+      }
+      if (this.password === "") {
+        Toast({
+          message: "请输入用户密码",
+          duration: 1500
+        });
+        return;
+      }
+      this.$http(
+        "loginByPass" +
+          "?" +
+          "mobile=" +
+          this.name +
+          "&" +
+          "password=" +
+          this.password,
+        "post"
+      ).then(res => {
+        if (res.code === 9999) {
+          Toast({
+            message: res.msg,
+            duration: 1500
+          });
+        } else {
+          Toast({
+            type: "success",
+            message: "登陆成功",
+            duration: 1500
+          });
+        }
+      });
+    }
+  }
 };
 </script>
 

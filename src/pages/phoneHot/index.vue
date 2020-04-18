@@ -107,7 +107,7 @@ export default {
       shopList: {},
       skuTree: [],
       bannerList: [],
-      show: true,
+      show: false,
       commoditySpecification: [],
       kucun: {
         price: "",
@@ -211,7 +211,6 @@ export default {
       // 显示选中的版本和颜色
       let arrs = [];
       for (let f = 0; f < this.skuTree.length; f++) {
-        console.log(this.skuTree[f]);
         for (let m = 0; m < this.skuTree[f].v.length; m++) {
           if (this.skuTree[f].v[m].color === true) {
             arrs.push(this.skuTree[f].v[m].name);
@@ -221,11 +220,37 @@ export default {
       this.Choice = arrs = arrs.join(",");
     },
     // 验证是否选择了商品规格或颜色
-    verifyProductSelection() {},
+    verifyProductSelection() {
+      let i = 0;
+      for (let m = 0; m < this.skuTree.length; m++) {
+        i = 0;
+        for (let p = 0; p < this.skuTree[m].v.length; p++) {
+          if (this.skuTree[m].v[p].color === false) {
+            i++;
+          }
+        }
+        if (i === 2) {
+          Toast({
+            message: "请先选择商品" + this.skuTree[m].k,
+            duration: 1500
+          });
+          break;
+        }
+      }
+      if (i === 2) {
+        return false;
+      } else {
+        return true;
+      }
+    },
     // 加入购物车
     gouwuche() {},
     //立即购买
-    goumai() {}
+    goumai() {
+      let isAdopt = this.verifyProductSelection();
+      if (isAdopt) {
+      }
+    }
   }
 };
 </script>
