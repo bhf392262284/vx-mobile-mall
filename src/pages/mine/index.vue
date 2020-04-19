@@ -5,7 +5,7 @@
       <div class="user">
         <img :src="banner" />
       </div>
-      <div class="isDisplay">
+      <div class="isDisplay" v-if="isDisplay===false">
         <van-cell-group class="user-login">
           <van-field
             required
@@ -19,7 +19,7 @@
             required
             clearable
             type="password"
-            @change="isUesePASSWORD"
+            @change="isPassWord"
             label="密码"
             placeholder="请输入密码"
             :value="password"
@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="content-bottom">
+    <div class="content-bottom" v-if="isDisplay===true">
       <van-row class="row">
         <van-col span="6" class="center">
           <van-icon size="24px" name="pending-payment" />
@@ -70,17 +70,25 @@ export default {
     return {
       banner: banner,
       name: "",
-      password: ""
+      password: "",
+      isDisplay: false //未登录
     };
   },
   methods: {
     isName(e) {
       this.name = e.mp.detail;
     },
-    isUesePASSWORD(e) {
+    isPassWord(e) {
       this.password = e.mp.detail;
     },
     land() {
+      if (this.name === "" && this.password === "") {
+        Toast({
+          message: "请输入用户账号和密码",
+          duration: 1500
+        });
+        return;
+      }
       if (this.name === "") {
         Toast({
           message: "请输入用户账号",
@@ -106,18 +114,31 @@ export default {
         "post"
       ).then(res => {
         if (res.code === 9999) {
+          // 登陆错误
           Toast({
             message: res.msg,
             duration: 1500
           });
+          this.isDisplay = false;
         } else {
           Toast({
             type: "success",
             message: "登陆成功",
             duration: 1500
           });
+          this.isDisplay = true;
+          console.log(res);
+          wx.setStorageSync("token", res.data.token);
+          wx.setStorageSync("user", res.data.user);
         }
       });
+    }
+  },
+  onShow: function() {
+    if (wx.getStorageSync("token")) {
+      this.isDisplay = true;
+    } else {
+      this.isDisplay = false;
     }
   }
 };

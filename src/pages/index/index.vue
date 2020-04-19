@@ -277,7 +277,7 @@ export default {
     },
     //头部 Tab 接口
     allDtata(index) {
-      this.$http("goods/queryGoods", "get", {
+      this.$http("goods/queryGoods", "GET", {
         page: 1,
         limit: 50,
         idCategory: index

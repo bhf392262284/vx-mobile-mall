@@ -135,3 +135,6 @@
 .shoppingCart .van-submit-bar__bar {
   padding: 0 20px;
 }
+.WhetherTheColor .van-icon.van-icon-like-o {
+  color: red;
+}

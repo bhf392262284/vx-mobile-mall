@@ -82,7 +82,12 @@
     <div>
       <van-goods-action class="aciton-height">
         <van-goods-action-icon icon="home-o" plain="ture" text="主页" @click="onClickHome" />
-        <van-goods-action-icon icon="like-o" text="喜欢" />
+        <van-goods-action-icon
+          :class="{WhetherTheColor:likeColor}"
+          icon="like-o"
+          @click="WtoCollect()"
+          text="喜欢"
+        />
         <van-goods-action-icon icon="cart-o" info="5" text="购物车" />
         <van-goods-action-button
           @click="open"
@@ -102,6 +107,7 @@ export default {
   data() {
     //试试
     return {
+      likeColor: false,
       shuzi: 1,
       url: baseImageUrl,
       shopList: {},
@@ -113,13 +119,50 @@ export default {
         price: "",
         stock: ""
       },
-      Choice: ""
+      Choice: "",
+      shopLists: ""
     };
   },
+  // 用户刚进来执行的生命周期
   onLoad(option) {
     this.getGoods(option.id);
+    this.isLike(option.id);
+    this.shopLists = option.id;
   },
   methods: {
+    // 用户刚进来判断是否收藏该商品
+    isLike(id) {
+      if (wx.getStorageSync("token")) {
+        this.$http("user/favorite/ifLike/" + id, "get").then(res => {
+          this.likeColor = res.data;
+        });
+      }
+    },
+    // 点击收藏按钮事件
+    WtoCollect() {
+      if (wx.getStorageSync("token")) {
+        if (this.likeColor) {
+          // 取消收藏
+        } else {
+          // 收藏
+          this.$http("user/favorite/add/" + this.shopLists, "post").then(
+            res => {
+              this.likeColor = true;
+              Toast({
+                message: "收藏成功",
+                duration: 1500
+              });
+            }
+          );
+        }
+      } else {
+        Toast({
+          message: "请先登陆",
+          duration: 1500
+        });
+      }
+    },
+    // 获取商品详情
     getGoods(id) {
       this.$http("goods/" + id).then(res => {
         let shop = res.data.goods;

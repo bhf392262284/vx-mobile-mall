@@ -9,10 +9,11 @@ function request(url, method, data) {
   return new Promise((resolve, reject) => {
     wx.request({
       url: host + url, // 仅为示例，并非真实的接口地址
-      method: method,
+      method: method, // 请求方式get或post
       data: data,
-      headers: {
-        "content-type": "application/json", // 默认值
+      header: {
+        "Content-Type": "application/json",
+        Authorization: wx.getStorageSync("token"),
       },
       success: function (res) {
         wx.hideLoading();
