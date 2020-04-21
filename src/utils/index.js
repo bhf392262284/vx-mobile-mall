@@ -1,6 +1,7 @@
-const host = "https://linjiashop.microapp.store/prod-api/";
+const host = "http://linjiashop.microapp.store/prod-api/";
+
 const baseImageUrl =
-  "https://linjiashop.microapp.store/prod-api/file/getImgStream?idFile=";
+  "http://linjiashop.microapp.store/prod-api/file/getImgStream?idFile=";
 
 function request(url, method, data) {
   wx.showLoading({

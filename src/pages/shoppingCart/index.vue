@@ -1,11 +1,11 @@
 <template>
   <div class="shoppingCart">
-    <p>
+    <p v-if="loginoOrNot">
       <van-icon size="48px" name="shopping-cart-o" />
       <i>还没有登录</i>
       <van-button round type="primary" block>立即登录</van-button>
     </p>
-    <div class="shop-list">
+    <div class="shop-list" v-else>
       <div class="tow">
         <van-checkbox class="checkbox" value="checked" @change="onChanges"></van-checkbox>
         <van-card num="2" price="30" desc="描述信息" title="商品标题" :thumb="imageURL " />
@@ -38,6 +38,8 @@ export default {
   name: "shoppingCart",
   data() {
     return {
+      shoppingList: [],
+      loginoOrNot: true,
       allChcek: false,
       prices: "30",
       checked: true,
@@ -45,7 +47,18 @@ export default {
         "https://linjiashop.microapp.store/prod-api/file/getImgStream?idFile=5ad73a65-3ae1-4a62-8d90-3cd4f5a48ef1.jpg"
     };
   },
+  onLoad() {
+    this.logNot();
+  },
   methods: {
+    logNot() {
+      if (wx.getStorageSync("token")) {
+        this.loginoOrNot = false;
+        this.$http("user/cart/queryByUser", "get").then(res => {
+          this.shoppingList = res.data;
+        });
+      }
+    },
     //累加
     onChange(event) {
       console.log(event.detail);

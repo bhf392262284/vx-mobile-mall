@@ -88,7 +88,7 @@
           @click="WtoCollect()"
           text="喜欢"
         />
-        <van-goods-action-icon icon="cart-o" info="5" text="购物车" />
+        <van-goods-action-icon icon="cart-o" :info="shuzi?shuzi:''" @click="Cart()" text="购物车" />
         <van-goods-action-button
           @click="open"
           color="linear-gradient(90deg, rgb(255, 96, 52), rgb(238, 10, 36)"
@@ -108,7 +108,7 @@ export default {
     //试试
     return {
       likeColor: false,
-      shuzi: 1,
+      shuzi: "",
       url: baseImageUrl,
       shopList: {},
       skuTree: [],
@@ -128,8 +128,24 @@ export default {
     this.getGoods(option.id);
     this.isLike(option.id);
     this.shopLists = option.id;
+    this.ShoppingCart();
   },
   methods: {
+    //购物车
+    Cart() {
+      wx.switchTab({
+        url: "/pages/shoppingCart/main"
+      });
+    },
+    //购物车显示数量
+    ShoppingCart() {
+      if (wx.getStorageSync("token")) {
+        this.$http("user/cart/count", "get").then(res => {
+          this.shuzi = res.data;
+        });
+      }
+    },
+
     // 用户刚进来判断是否收藏该商品
     isLike(id) {
       if (wx.getStorageSync("token")) {
@@ -286,8 +302,6 @@ export default {
         return true;
       }
     },
-    // 加入购物车
-    gouwuche() {},
     //立即购买
     goumai() {
       let isAdopt = this.verifyProductSelection();
