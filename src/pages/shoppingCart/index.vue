@@ -6,11 +6,19 @@
       <van-button round type="primary" block>立即登录</van-button>
     </p>
     <div class="shop-list" v-else>
-      <div class="tow">
-        <van-checkbox class="checkbox" value="checked" @change="onChanges"></van-checkbox>
-        <van-card num="2" price="30" desc="描述信息" title="商品标题" :thumb="imageURL " />
+      <div v-for="(item,index) in shoppingList" :key="index">
+        <div class="tow">
+          <van-checkbox class="checkbox" value="checked" @click="onChanges($event, index)"></van-checkbox>
+          <van-card
+            :num="item.count"
+            :price="item.price"
+            :desc="item.goods.descript"
+            :title="item.sku.title"
+            :thumb=" url+ item.goods.pic"
+          />
+        </div>
+        <van-stepper value=" 1" @change="onChange" />
       </div>
-      <van-stepper value=" 1" @change="onChange" />
       <van-submit-bar
         decimal-length="2"
         type="info"
@@ -34,17 +42,17 @@
 </template>
 
 <script>
+import { baseImageUrl } from "@/utils/index";
 export default {
   name: "shoppingCart",
   data() {
     return {
+      url: "baseImageUrl",
       shoppingList: [],
       loginoOrNot: true,
       allChcek: false,
       prices: "30",
-      checked: true,
-      imageURL:
-        "https://linjiashop.microapp.store/prod-api/file/getImgStream?idFile=5ad73a65-3ae1-4a62-8d90-3cd4f5a48ef1.jpg"
+      checked: true
     };
   },
   onLoad() {
@@ -55,7 +63,11 @@ export default {
       if (wx.getStorageSync("token")) {
         this.loginoOrNot = false;
         this.$http("user/cart/queryByUser", "get").then(res => {
-          this.shoppingList = res.data;
+          let shopping = res.data;
+          for (let i = 0; i < shopping.length; i++) {
+            shopping[i].isChoose = false;
+          }
+          this.shoppingList = shopping;
         });
       }
     },
@@ -64,8 +76,11 @@ export default {
       console.log(event.detail);
     },
     //商品复选按钮
-    onChanges(event) {
-      checked: event.detail;
+    onChanges(event, index) {
+      console.log(event, index);
+      for (let m = 0; m < this.shoppingList.length; m++) {
+        this.shoppingList[idnex].isChoose = event.mp.detail;
+      }
     },
     //商品提交
     onClickButton() {},
