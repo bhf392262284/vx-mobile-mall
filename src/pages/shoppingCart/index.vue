@@ -8,16 +8,20 @@
     <div class="shop-list" v-else>
       <div v-for="(item,index) in shoppingList" :key="index">
         <div class="tow">
-          <van-checkbox class="checkbox" value="checked" @click="onChanges($event, index)"></van-checkbox>
+          <van-checkbox class="checkbox" :value="item.isChoose" @change="changes($event,index)"></van-checkbox>
           <van-card
             :num="item.count"
-            :price="item.price"
+            :price="(item.price)"
             :desc="item.goods.descript"
             :title="item.sku.title"
             :thumb=" url+ item.goods.pic"
           />
         </div>
-        <van-stepper value=" 1" @change="onChange" />
+        <van-stepper
+          disable-input="true"
+          :value="item.count"
+          @change="onChange($event,index,item.id)"
+        />
       </div>
       <van-submit-bar
         decimal-length="2"
@@ -28,11 +32,11 @@
         bind:submit="onSubmit"
       >
         <div class="check-width">
-          <van-checkbox :value="allChcek" @change="allCheckChange">复选框</van-checkbox>
+          <van-checkbox :value="allChcek" @change="allCheckChange">全选</van-checkbox>
           <div class="duiqi">
             <i>合计：</i>
             <span>￥</span>
-            <i class="jiacu">250</i>
+            <i class="jiacu">{{heji}}</i>
             <span style="padding-right:12px;">.00</span>
           </div>
         </div>
@@ -47,15 +51,16 @@ export default {
   name: "shoppingCart",
   data() {
     return {
-      url: "baseImageUrl",
+      url: baseImageUrl,
       shoppingList: [],
-      loginoOrNot: true,
-      allChcek: false,
+      loginoOrNot: false, //false 是已登录 true是未登录
+      allChcek: true,
       prices: "30",
-      checked: true
+      checked: true,
+      heji: ""
     };
   },
-  onLoad() {
+  onShow() {
     this.logNot();
   },
   methods: {
@@ -65,28 +70,56 @@ export default {
         this.$http("user/cart/queryByUser", "get").then(res => {
           let shopping = res.data;
           for (let i = 0; i < shopping.length; i++) {
-            shopping[i].isChoose = false;
+            shopping[i].isChoose = true;
+            shopping[i].price = shopping[i].price / 100;
           }
           this.shoppingList = shopping;
+          this.PriceCalculation();
         });
+      } else {
+        this.loginoOrNot = true;
       }
     },
     //累加
-    onChange(event) {
-      console.log(event.detail);
+    onChange(event, index, id) {
+      this.shoppingList[index].count = event.mp.detail;
+      this.$http(
+        "user/cart/update/" + id + "/" + this.shoppingList[index].count,
+        "post"
+      );
+      this.PriceCalculation();
     },
+
     //商品复选按钮
-    onChanges(event, index) {
-      console.log(event, index);
+    changes(event, index) {
+      console.log(event, "商品索引" + index);
       for (let m = 0; m < this.shoppingList.length; m++) {
-        this.shoppingList[idnex].isChoose = event.mp.detail;
+        if (m === index) {
+          this.shoppingList[m].isChoose = event.mp.detail;
+          break;
+        }
       }
+      this.PriceCalculation();
     },
     //商品提交
     onClickButton() {},
     // 购物车全选
-    allCheckChange(v) {
-      this.allChcek = v.mp.detail;
+    allCheckChange(s) {
+      this.allChcek = s.mp.detail;
+      for (let v = 0; v < this.shoppingList.length; v++) {
+        this.shoppingList[v].isChoose = this.allChcek;
+      }
+      this.PriceCalculation();
+    },
+    //价格计算
+    PriceCalculation() {
+      let heji = 0;
+      for (let o = 0; o < this.shoppingList.length; o++) {
+        if (this.shoppingList[o].isChoose) {
+          heji = heji + this.shoppingList[o].price * this.shoppingList[o].count;
+        }
+      }
+      this.heji = heji;
     }
   },
   created() {}

@@ -17,12 +17,18 @@ function request(url, method, data) {
         Authorization: wx.getStorageSync("token"),
       },
       success: function (res) {
+        if (res.statusCode === 401) {
+          let url = "/pages/mine/main";
+          wx.clearStorageSync();
+          wx.switchTab({ url });
+          reject();
+        }
         wx.hideLoading();
         resolve(res.data);
       },
       fail: function (res) {
         wx.hideLoading();
-        // reject(false)
+        reject();
       },
       complete: function () {
         wx.hideLoading();
