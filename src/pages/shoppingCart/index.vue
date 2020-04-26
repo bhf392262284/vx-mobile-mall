@@ -29,7 +29,7 @@
         price=" prices "
         label="合计"
         button-text="结算"
-        bind:submit="onSubmit"
+        @click="Settlement()"
       >
         <div class="check-width">
           <van-checkbox :value="allChcek" @change="allCheckChange">全选</van-checkbox>
@@ -64,6 +64,11 @@ export default {
     this.logNot();
   },
   methods: {
+    //结算
+    Settlement() {
+      const url = "/pages/shoppingInformation/main";
+      wx.navigateTo({ url });
+    },
     logNot() {
       if (wx.getStorageSync("token")) {
         this.loginoOrNot = false;
