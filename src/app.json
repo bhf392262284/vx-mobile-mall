@@ -6,7 +6,9 @@
     "pages/mine/main",
     "pages/details/main",
     "pages/phoneHot/main",
-    "pages/shoppingInformation/main"
+    "pages/shoppingInformation/main",
+    "pages/setUp/main",
+    "pages/myOrder/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

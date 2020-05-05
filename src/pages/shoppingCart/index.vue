@@ -6,41 +6,48 @@
       <van-button round type="primary" block>立即登录</van-button>
     </p>
     <div class="shop-list" v-else>
-      <div v-for="(item,index) in shoppingList" :key="index">
-        <div class="tow">
-          <van-checkbox class="checkbox" :value="item.isChoose" @change="changes($event,index)"></van-checkbox>
-          <van-card
-            :num="item.count"
-            :price="(item.price)"
-            :desc="item.goods.descript"
-            :title="item.sku.title"
-            :thumb=" url+ item.goods.pic"
+      <div v-if="shoppingList.length >0">
+        <div v-for="(item,index) in shoppingList" :key="index">
+          <div class="tow">
+            <van-checkbox class="checkbox" :value="item.isChoose" @change="changes($event,index)"></van-checkbox>
+            <van-card
+              :num="item.count"
+              :price="(item.price)"
+              :desc="item.goods.descript"
+              :title="item.sku.title"
+              :thumb=" url+ item.goods.pic"
+            />
+          </div>
+          <van-stepper
+            disable-input="true"
+            :value="item.count"
+            @change="onChange($event,index,item.id)"
           />
         </div>
-        <van-stepper
-          disable-input="true"
-          :value="item.count"
-          @change="onChange($event,index,item.id)"
-        />
-      </div>
-      <van-submit-bar
-        decimal-length="2"
-        type="info"
-        price=" prices "
-        label="合计"
-        button-text="结算"
-        @click="Settlement()"
-      >
-        <div class="check-width">
-          <van-checkbox :value="allChcek" @change="allCheckChange">全选</van-checkbox>
-          <div class="duiqi">
-            <i>合计：</i>
-            <span>￥</span>
-            <i class="jiacu">{{heji}}</i>
-            <span style="padding-right:12px;">.00</span>
+        <van-submit-bar
+          decimal-length="2"
+          type="info"
+          price=" prices "
+          label="合计"
+          button-text="结算"
+          @submit="Settlement()"
+        >
+          <div class="check-width">
+            <van-checkbox :value="allChcek" @change="allCheckChange">全选</van-checkbox>
+            <div class="duiqi">
+              <i>合计：</i>
+              <span>￥</span>
+              <i class="jiacu">{{heji}}</i>
+              <span style="padding-right:12px;">.00</span>
+            </div>
           </div>
-        </div>
-      </van-submit-bar>
+        </van-submit-bar>
+      </div>
+      <p v-else>
+        <van-icon size="48px" name="shopping-cart-o" />
+        <i>购物车还是空的</i>
+        <van-button round type="default" block>去逛逛</van-button>
+      </p>
     </div>
   </div>
 </template>

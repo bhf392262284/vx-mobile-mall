@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "设置",
+  "usingComponents": {
+    "van-cell": "/static/vant/cell/index",
+    "van-cell-group": "/static/vant/cell-group/index",
+    "van-nav-bar": "/static/vant/nav-bar/index",
+    "van-button": "/static/vant/button/index",
+    "van-toast": "/static/vant/toast/index"
+  }
+}

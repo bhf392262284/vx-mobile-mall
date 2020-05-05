@@ -57,6 +57,12 @@
 					"pathName": "pages/shoppingCart/main",
 					"query": "id=1",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/myOrder/main",
+					"pathName": "pages/myOrder/main",
+					"scene": null
 				}
 			]
 		}

@@ -50,12 +50,19 @@
           <i class="font-s">已完成</i>
         </van-col>
       </van-row>
-      <van-cell class="kongbai" icon="records" title="全部订单" is-link />
+      <van-cell
+        class="kongbai"
+        icon="records"
+        title="全部订单"
+        is-link
+        link-type="navigateTo"
+        url="/pages/myOrder/main"
+      />
       <van-cell icon="location-o" title="收货地址" is-link />
       <van-cell icon="points" title="我的积分" is-link />
       <van-cell icon="after-sale" title="我的优惠卷" is-link />
       <van-cell icon="shop-o" title="我收到的礼物" is-link />
-      <van-cell icon="setting-o" title="设置" is-link />
+      <van-cell icon="setting-o" link-type="navigateTo" title="设置" is-link url="/pages/setUp/main" />
     </div>
   </div>
 </template>
@@ -132,6 +139,10 @@ export default {
           wx.setStorageSync("user", res.data.user);
         }
       });
+    },
+    toSetup() {
+      let url = "/pages/setUp/main";
+      wx.navigateTo({ url });
     }
   },
   onShow: function() {

@@ -88,7 +88,12 @@
           @click="WtoCollect()"
           text="喜欢"
         />
-        <van-goods-action-icon icon="cart-o" :info="shuzi?shuzi:''" @click="Cart()" text="购物车" />
+        <van-goods-action-icon
+          icon="cart-o"
+          :info="shuliang?shuliang:''"
+          @click="Cart()"
+          text="购物车"
+        />
         <van-goods-action-button
           @click="open"
           color="linear-gradient(90deg, rgb(255, 96, 52), rgb(238, 10, 36)"
@@ -107,8 +112,11 @@ export default {
   data() {
     //试试
     return {
+      shopId: "", //商品ID
+      shoppId: "", //选中id
+      shuliang: "",
       likeColor: false,
-      shuzi: "",
+      shuzi: 1,
       url: baseImageUrl,
       shopList: {},
       skuTree: [],
@@ -125,6 +133,7 @@ export default {
   },
   // 用户刚进来执行的生命周期
   onLoad(option) {
+    this.shopId = option.id;
     this.getGoods(option.id);
     this.isLike(option.id);
     this.shopLists = option.id;
@@ -141,7 +150,7 @@ export default {
     ShoppingCart() {
       if (wx.getStorageSync("token")) {
         this.$http("user/cart/count", "get").then(res => {
-          this.shuzi = res.data;
+          this.shuliang = res.data;
         });
       }
     },
@@ -258,8 +267,10 @@ export default {
       if (arr.length > 1) {
         for (let v = 0; v < this.commoditySpecification.length; v++) {
           if (this.commoditySpecification[v].code === arr.join(",")) {
+            console.log(this.commoditySpecification[v].code);
             this.kucun.price = this.commoditySpecification[v].price;
             this.kucun.stock = this.commoditySpecification[v].stock_num;
+            this.shoppId = this.commoditySpecification[v].id;
           }
         }
       } else {
@@ -300,6 +311,20 @@ export default {
         return false;
       } else {
         return true;
+      }
+    },
+    //加入购物车
+    gouwuche() {
+      let isAdopt = this.verifyProductSelection();
+      if (isAdopt) {
+        this.$http("user/cart/add", "post", {
+          count: this.shuzi,
+          idGoods: this.shoppId,
+          idSku: this.shopId
+        }).then(res => {
+          this.show = false;
+          Toast.success("已加入到购物车");
+        });
       }
     },
     //立即购买
