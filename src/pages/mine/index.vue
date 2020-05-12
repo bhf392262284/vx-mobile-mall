@@ -69,7 +69,7 @@
 
 <script>
 import Toast from "../../../static/vant/toast/toast";
-import banner from "../../../static/img/user-banner.jpg";
+import banner from "../../../static/img/user-banner1.jpg";
 
 export default {
   name: "login",
@@ -162,7 +162,6 @@ export default {
 .login .user img {
   width: 100%;
   height: 156px;
-  background-color: red;
 }
 .login .isDisplay {
   background-color: #ffff;
